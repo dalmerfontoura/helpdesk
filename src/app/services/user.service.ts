@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user.model';
 import { Injectable } from '@angular/core';
 import { HELPDESK_API } from './helpdesck.api';
+import { Ticket } from '../model/ticket.model';
 
 @Injectable({
   providedIn: 'root'

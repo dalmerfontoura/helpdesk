@@ -13,8 +13,8 @@ export class TicketService {
 
 
   /**
-   *
-   * @param ticket
+   * Salvar / Atualizar
+   * @param ticket Ticket
    */
   createOrUpdate(ticket: Ticket) {
     if (ticket.id != null && ticket.id !== '') {
@@ -27,17 +27,17 @@ export class TicketService {
   }
 
   /**
-   *
-   * @param page
-   * @param count
+   * buscar todos
+   * @param page pagina
+   * @param count quantidade
    */
   findAll(page: number, count: number) {
     return this.http.get(`${HELPDESK_API}/api/ticket/${page}/${count}`);
   }
 
   /**
-   *
-   * @param id
+   * buscar
+   * @param id Identificador
    */
   findById(id: string) {
     return this.http.get(`${HELPDESK_API}/api/ticket/${id}`);
@@ -45,9 +45,32 @@ export class TicketService {
 
   /**
    * Apagar registro
-   * @param id identificador;
+   * @param id identificador
    */
   delete(id: string) {
     return this.http.delete(`${HELPDESK_API}/api/ticket/${id}`);
+  }
+
+  /**
+   * buscar
+   * @param page pagina
+   * @param count quantidade
+   * @param assinedToMe assinado para mim
+   * @param t Ticket
+   */
+  findByParam(page: number, count: number, assinedToMe: boolean, t: Ticket) {
+    t.numbers = t.numbers == null ? 0 : t.numbers;
+    t.title = t.title == null ? 'uniformed' : t.title;
+    t.title = t.status == null ? 'uniformed' : t.status;
+    t.title = t.priority == null ? 'uniformed' : t.priority;
+    return this.http.get(`${HELPDESK_API}/api/user/${page}/${count}/${t.numbers}/${t.title}/${t.status}/${t.priority}/${assinedToMe}`);
+  }
+
+  changeStatus(status: string, ticket: Ticket) {
+    return this.http.put(`${HELPDESK_API}/api/ticket/${ticket.id}/${status}`, ticket);
+  }
+
+  sumary() {
+    return this.http.get(`${HELPDESK_API}/api/ticket/sumary`);
   }
 }
