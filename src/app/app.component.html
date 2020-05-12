@@ -1,5 +1,5 @@
-<app-header></app-header>
-<app-menu></app-menu>
+<app-header [hidden]="!showTemplate"></app-header>
+<app-menu [hidden]="!showTemplate" ></app-menu>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -9,7 +9,7 @@
 
   <!-- Main content -->
   <section class="content">
-    Conteudo aqui...
+    <router-outlet></router-outlet>
   </section>
 </div>
-<app-footer></app-footer>
+<app-footer ></app-footer>
