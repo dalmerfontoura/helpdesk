@@ -4,8 +4,6 @@ import { SharedService } from 'src/app/services/shared.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { CurrentUser } from 'src/app/model/current-user.model';
-import { routes } from 'src/app/app.routes';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +28,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.message = '';
-    this.userService.login(this.user).subscribe((userAutentication: CurrentUser) => {
+    this.shared.showTemplate.emit(true);
+    this.shared.user.email = '';
+    /* this.userService.login(this.user).subscribe((userAutentication: CurrentUser) => {
       this.shared.token = userAutentication.token;
       this.shared.user = userAutentication.user;
       this.shared.user.profile = this.shared.user.profile.substr(5);
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.shared.user = null;
       this.shared.showTemplate.emit(false);
       this.message = 'Erro';
-    });
+    }); */
   }
 
   cancelLogin() {
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     return {
       'form-group': true,
       'has-error': isInvalid && isDirty,
-      'has-succes': !isInvalid && !isDirty
+      'has-success': !isInvalid && !isDirty
     };
   }
 
